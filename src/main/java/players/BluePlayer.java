@@ -41,7 +41,8 @@ public class BluePlayer implements Player {
     }
     @Override
     public void recordForfeitMove(int attemptedPosition) {
-        moveHistory.add("Overshot to " + board[attemptedPosition]);
+        int overshotBy = attemptedPosition - board.length +1;
+        moveHistory.add("Overshot by " + overshotBy);
     }
     @Override
     public void recordBlockedMove(int attemptedPosition) {

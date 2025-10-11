@@ -53,7 +53,7 @@ public class GameController {
 
                //5. Check if player has won?
                 if(player.hasWon()) {
-                    System.out.println("\n🏆 " + player.getName() + " has reached " + player.getBoard()[newPosition] + " and wins the game!");
+                    System.out.println("\n🏆 " + player.getName() + " has reached " + player.getBoard()[newPosition] + " and wins the game! 🏆");
                     gameOver = true;
                     break;
                 }
@@ -66,16 +66,16 @@ public class GameController {
     }
     //Method will print out the current state of play after a round.
     private void printBoardStatus() {
-        System.out.println("\n Board status:");
+        System.out.println("\nBoard status:");
         for(Player player:players) {
-            System.out.println(player.getName() + " is at " + player.getBoard()[player.getPosition()]);
+            System.out.println(player.getColorCode() + player.getName() + " is at " + player.getBoard()[player.getPosition()] + "\u001B[0m");
         }
     }
     //Method will print out a summary for each player when the game ends.
     private void printGameSummary() {
-        System.out.println("\n End of game status:");
+        System.out.println("\nEnd of game status:");
         for(Player player:players) {
-            System.out.println("\n" + player.getName());
+            System.out.println("\n" + player.getColorCode() + player.getName() + "\u001B[0m");
             System.out.println("Moves made:" + player.getMoveCount());
             System.out.println("Final position:" + player.getBoard()[player.getPosition()]);
             System.out.println("Move history:" + player.getMoveHistory());
