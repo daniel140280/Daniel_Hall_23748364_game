@@ -17,6 +17,9 @@ public class BluePlayer implements Player {
     private final List<String> moveHistory = new ArrayList<>();
     //Declaring our players name. This could be set by user input in future variations.
     private final String name = "Blue";
+    public String getColorCode() {
+        return "\u001B[34m"; //Blue colour.
+    }
     public String[] getBoard() {
         return board;
     }
@@ -32,21 +35,21 @@ public class BluePlayer implements Player {
     }
     @Override
     public void move(int steps) {
-        if (position + steps < board.length) {
             position += steps;
+            moveCount++;
             moveHistory.add(board[position]);
-        } else {
-            System.out.println("That roll was too great, you overshot. You must land on B3 (End)");
-            moveHistory.add("Overshot!"); //adding a reference to the overall game performance.
-        }
     }
     @Override
     public void recordForfeitMove(int attemptedPosition) {
+        moveHistory.add("Overshot to " + board[attemptedPosition]);
+    }
+    @Override
+    public void recordBlockedMove(int attemptedPosition) {
         moveHistory.add("Blocked at " + board[attemptedPosition]);
     }
     @Override
     public boolean hasWon() {
-        return board[position].equals("B3 (End)"); //AMEND THESE TO SOMETHING LIKE board[board.length] SO VALUE NOT HARDCODED
+        return board[position].equals(board[board.length -1]);
     }
     @Override
     public List<String> getMoveHistory() {

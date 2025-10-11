@@ -8,12 +8,15 @@ import java.util.List;
  */
 public interface Player {
     //REMEMBER TO CONSIDER ENCAPSULATION - PUBLIC, PRIVATE ETC
+    String getName();
+    String getColorCode(); //ANSI colour code used for console output and improved visibility of player.
     String[] getBoard();
     int getPosition();
     void move(int steps);
     int getMoveCount();
     void recordForfeitMove(int attemptedPosition);
+    void recordBlockedMove(int attemptedPosition);
     boolean hasWon();
-    String getName();
+
     List<String> getMoveHistory();
 }

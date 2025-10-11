@@ -23,7 +23,7 @@ public class GameController {
                int toPosition = fromPosition + roll; //Calculate proposed position on the board.
 
                //1. Output to the console highlighting the player (incl. colour) and what score they rolled.
-               System.out.println("\n🎲 " + player.getName() + " rolls: " + roll + "\u001B[0m");
+               System.out.println(player.getColorCode() + "\n🎲 " + player.getName() + " rolls: " + roll + "\u001B[0m");
 
                //2. Check the player does not overshoot their board.
                if(toPosition >= player.getBoard().length) {
@@ -42,7 +42,7 @@ public class GameController {
                }
                if(blocked) {
                    System.out.println("Blocked " + player.getName() + " would land on " + player.getBoard()[toPosition] + ", but it's already occupied. Move forfeited, stay at position " + player.getBoard()[fromPosition]);
-                   player.recordForfeitMove(toPosition); //Log the blocked move.
+                   player.recordBlockedMove(toPosition); //Log the blocked move.
                    continue; //Move to next player without current player moving position.
                }
 
