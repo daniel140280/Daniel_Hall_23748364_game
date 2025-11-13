@@ -3,10 +3,10 @@ package gameconfig;
 import board.GameBoard;
 import dice.DiceShaker;
 import gameobserver.GameListener;
+import gameobserver.ObserverConsoleLogger;
 import playergamepositions.Position;
 import players.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //Purpose of the GameController is to set up the board and players based on the variation selected.
@@ -42,6 +42,7 @@ public class GameController {
                if(toPosition >= gameBoard.getTotalBoardLength()) {
                    player.endMove(toPosition);                      //Check if the move validates the end strategy for this game.
                    notifyEnd(player, toPosition);                   //Observer records the relevant output.
+                   printTurnSummary(player);                        //Single summary line output to console.
                    continue;                                        //Move to next player without current player moving position.
                }
 
@@ -56,6 +57,7 @@ public class GameController {
                if(blocked) {
                    player.forfeitMove(toPosition);                  //Check if the player object hits another player object and apply game strategy.
                    notifyBlocked(player, toPosition);               //Observer outputs the outcome of the strategy applied.
+                   printTurnSummary(player);                        //Single summary line output to console.
                    continue;                                        //Move to next player without current player moving position.
                }
 
@@ -67,9 +69,11 @@ public class GameController {
                //5. Check if player has won?
                 if(gameBoard.isEndPosition(newPosition)) {
                     System.out.println("\n🏆 " + player.getName() + " has reached position " + newPosition + " and wins the game! 🏆");
+                    printTurnSummary(player);                        //Single final line output to console.
                     gameOver = true;
                     break;
                 }
+                printTurnSummary(player);                           //Single summary line output to console for normal move.
             }
             //Print the status of the board after every round. ADD TO LISTENER AND WINNING TEXT?
             printBoardStatus();
@@ -108,6 +112,13 @@ public class GameController {
     private void notifyEnd(Player player, int attemptedPosition){
         for(GameListener listener: listenerList){
             listener.hitEnd(player, attemptedPosition);
+        }
+    }
+    private void printTurnSummary(Player player){
+        for(GameListener listener: listenerList){
+            if(listener instanceof ObserverConsoleLogger logger){
+                logger.printTurnSummary(player);
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ import playergamepositions.Position;
 public class RedPlayer implements Player {
 
     private final String name = "Red";
-    private final String colorCode = "\\u001B[31m"; //Red colour.
+    private final String colorCode = "\u001B[31m"; //Red colour.
 
     private final PlayerContext context;
     private final MoveStrategy moveStrategy;

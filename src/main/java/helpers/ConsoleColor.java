@@ -1,7 +1,8 @@
 package helpers;
 
 public class ConsoleColor {
-    public static String consoleColor(String text, String colorCode){
-        return colorCode + text + "\u001B[0m";
+    private static final String RESET = "\u001B[0m";
+    public static String consoleColor(String message, String colorCode){
+        return colorCode + message + RESET;
     }
 }
